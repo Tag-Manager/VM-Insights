@@ -76,14 +76,6 @@ Catch
 }
 #endregion Checks
 
-#Register resource provider
-$registrationstate = (Get-AzResourceProvider -ProviderNamespace Microsoft.AlertsManagement).RegistrationState
-If ($registrationstate -ne "Registered")
-{
-    Write-Output "Register the Resource Provider Microsoft.AlertsManagement for Health feature"
-    Register-AzResourceProvider -ProviderNamespace Microsoft.AlertsManagement
-}
-
 #Gather Log Analytics workspace details
 $loganalyticsworkspace = Get-AzOperationalInsightsWorkspace -Name $loganalyticworkspacename -ResourceGroupName $loganalyticworkspacerg
 $workspaceid = $loganalyticsworkspace.CustomerID.Guid
