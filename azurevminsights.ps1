@@ -84,9 +84,17 @@ $workspaceregion = $loganalyticsworkspace.Location
 $workspacesku = $loganalyticsworkspace.Sku
 
 #region virtual machines
-$vms = Get-AzVM
-$vmsss = Get-AzVmss
-
+#if filtered to a specific resource group
+If ($rgazresources)
+{
+    $vms = Get-AzVM -ResourceGroupName $rgazresources
+    $vmsss = Get-AzVmss -ResourceGroupName $rgazresources
+}
+Else
+{
+	$vms = Get-AzVM
+    $vmsss = Get-AzVmss
+}
 
 If ($vms.Count -gt 0)
 {
@@ -140,7 +148,7 @@ If ($vms.Count -gt 0)
             }
         }
 #Get installed extensions
-            $extensions = Get-AzVMExtension -VMName $vmname -ResourceGroupName $vmrg
+	$extensions = Get-AzVMExtension -VMName $vmname -ResourceGroupName $vmrg
 
 
 #Check if MMA and DA extensions are installed
@@ -234,8 +242,8 @@ If ($vms.Count -gt 0)
 # SIG # Begin signature block
 # MIIThQYJKoZIhvcNAQcCoIITdjCCE3ICAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUooBhD3vSLztI6rjGogk5OrWZ
-# RJCgghC8MIIFOjCCBCKgAwIBAgIRAMAkGCkl6rgosyKOhFWhX14wDQYJKoZIhvcN
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUGfJ9zYHZcxSDMQ2bOgbwiNZP
+# irmgghC8MIIFOjCCBCKgAwIBAgIRAMAkGCkl6rgosyKOhFWhX14wDQYJKoZIhvcN
 # AQELBQAwfDELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3Rl
 # cjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMSQw
 # IgYDVQQDExtTZWN0aWdvIFJTQSBDb2RlIFNpZ25pbmcgQ0EwHhcNMjAxMTIwMDAw
@@ -330,11 +338,11 @@ If ($vms.Count -gt 0)
 # b2RlIFNpZ25pbmcgQ0ECEQDAJBgpJeq4KLMijoRVoV9eMAkGBSsOAwIaBQCgeDAY
 # BgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3
 # AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEW
-# BBSj3WmYXIioiOXFGkxm06D+Qf60zjANBgkqhkiG9w0BAQEFAASCAQAmuvigOn/m
-# pjteRRcHP+uiOx+JJseJ1K4d0cyl4be4of8yhQP/f7uO5NiJtIpiYIxKaYkOBT7I
-# J/ujELvvdj8RHFB8yoy5DAn5O5TovGZOzI1RJ6xox6+gWke6Z/686S2f2LkcoRb5
-# HeyURshqjII/r9PBkIUMsjiL+VonPWgFZN9RtB00xjYniOxGGMB6GX+r+JCWnpCE
-# ZXAaNyD+dGaruY7gIcQ85GkMN5epvFu7YCGgycO+BDi/wYol0C1iXinl5xYAJBeY
-# KtVmIAbAiUt1IExsKAnMEiWnMrZ1Znez8sc5n3ve99KLnASQtmBU2vXEu4XRXQAs
-# iT0tcq0djphK
+# BBSGt0uPFCKMwSfzuXagaBoArnzrzDANBgkqhkiG9w0BAQEFAASCAQBdHJBKYoDa
+# jIzGsO7a4D8X4TJwF/xSX/7g5N8A5bj9AyYl4+7DIIV8XSEE7gv0gW8x8Qtdj7SJ
+# kGK5rxAExjqnrocFtSichVMEMPW2jMa/Kcq4lDBNvs5EOKDG3aorFxs9r3I04ogy
+# fVzpeCv49emb0/KRjEUO0AZNBvR/zKBXu3Nu/nitVFbasHNIfXJk/A9F0ZXvMYxd
+# 2+iFAVxNpNXx2frwJBqtIV63ChlSyHhDbIR3xKHpm/Z9naX1So9lS3+Y/i15VIKZ
+# tmHGBs/s9T+Zc1e0sEQDS8AKHBpCEypECtVMw8gxdDtXPpS+JW42Kl+/SDaZ9Fv+
+# JR8PI9lCVkQg
 # SIG # End signature block
